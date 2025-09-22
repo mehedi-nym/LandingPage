@@ -1,0 +1,311 @@
+:root {
+    --bg:#07070a;
+    --text:#ffffff;
+    --accent:#00d1ff;
+  }
+  
+  html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+main {
+  flex: 1;  /* fills remaining space, footer stays last */
+}
+
+  
+  /* ================= SECTIONS ================= */
+  .section {
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  
+  .video-section video {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:100%;
+    height:100%;
+    object-fit:cover; /* keeps full cover without cropping oddly */
+    background:#000;
+    z-index:0;
+    will-change:transform;
+  }
+  
+  .dark-layer {
+    position:absolute;
+    inset:0;
+    background:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55));
+    z-index:1;
+  }
+  
+  .overlay {
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:2rem;
+    max-width:1100px;
+  }
+  
+  .overlay h1 {
+    font-size:clamp(28px,6vw,64px);
+    margin:0 0 0.4rem;
+    line-height:1.1;
+  }
+  
+  .overlay p {
+    margin:0;
+    font-size:clamp(14px,2.4vw,20px);
+    opacity:.95;
+  }
+  
+  .countdown, .branding {
+    background:#031119;
+    color:var(--text);
+  }
+  
+  /* ================= SCROLL HINT ================= */
+  .scroll-hint {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    overflow: visible;
+    transition: background 0.3s ease, border 0.3s ease;
+  }
+  
+  /* Rotating ring */
+  .scroll-hint::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Arrow inside */
+  .scroll-hint::after {
+    content: "↓";
+    position: absolute;
+    bottom: 10px;  /* fixed typo */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    color: #fff;
+    opacity: 0.85;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover */
+  .scroll-hint:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 1);
+  }
+  
+  .scroll-hint:hover::after {
+    color: #000;
+    animation: bounce 2s infinite;
+  }
+  
+  /* Bounce animation */
+  @keyframes bounce {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -8px); }
+  }
+  
+  /* Tooltip */
+  .scroll-hint span {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .scroll-hint:hover span {
+    opacity: 1;
+  }
+  
+  /* ================= FOOTER ================= */
+/* ================= FOOTER ================= */
+.site-footer {
+  position: relative;
+  background: #000; /* black footer */
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -30px; /* adjust how tall the fade is */
+  left: 0;
+  width: 100%;
+  height: 60px; /* fade overlay height */
+  background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  pointer-events: none; /* don’t block clicks */
+}
+
+
+.site-footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;  /* keeps content above fade overlay */
+}
+
+.site-footer .footer-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.site-footer .footer-nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer .footer-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.site-footer .footer-nav a:hover {
+  opacity: 0.6;
+}
+
+.site-footer .copyright {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+
+
+  
+  /* ================= HEADER ================= */
+  /* Default header layout */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    box-sizing: border-box;
+  }
+  
+  .site-header .logo img {
+    max-height: 40px;
+    width: auto;
+  }
+  
+  /* Desktop nav */
+  .site-header .main-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .site-header .main-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* Hamburger button */
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* ========== Mobile ========== */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+  
+    /* hide nav by default */
+    .main-nav {
+      display: none;
+      width: 100%;
+    }
+  
+    .main-nav ul {
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  
+    /* when active, show nav */
+    .main-nav.active {
+      display: flex;
+    }
+  }
+  
+  
+  /* ================= RESPONSIVE ================= */
+  @media (max-width:600px) {
+    .overlay h1 { font-size:28px; }
+    .overlay p { font-size:15px; }
+  }
+  
+  
+  /* Accessibility: reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    video { animation: none !important; }
+    .scroll-hint::before { animation: none !important; }
+  }
+  
