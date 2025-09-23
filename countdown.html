@@ -1,0 +1,189 @@
+<div class="countdown-section">
+    <div class="countdown-box">
+      <h2>Launching Soon</h2>
+      <p>We’re preparing something exciting. Stay tuned for our launch!</p>
+      
+      <div id="countdown-timer">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Days</small>
+        </div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Hours</small>
+        </div>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Minutes</small>
+        </div>
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Seconds</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- Animated floating icons -->
+    <div class="countdown-icons">
+      <img src="icons/1.png" class="icon-small float-left">
+      <img src="icons/2.png" class="icon-medium float-right">
+      <img src="icons/3.png" class="icon-large float-left">
+      <img src="icons/4.png" class="icon-medium float-right">
+      <img src="icons/5.png" class="icon-small float-left">
+      <img src="icons/6.png" class="icon-large float-right">
+      <img src="icons/7.png" class="icon-medium float-left">
+      <img src="icons/8.png" class="icon-small float-right">
+      <img src="icons/9.png" class="icon-large float-left">
+      <img src="icons/10.png" class="icon-small float-right">
+      <img src="icons/11.png" class="icon-medium float-left">
+    </div>
+  </div>
+  
+  <style>
+  /* ================= COUNTDOWN SECTION ================= */
+
+  
+  /* Countdown card */
+  .countdown-box {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  max-width: 420px;
+  width: 100%;
+}
+
+.countdown-box h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.countdown-box p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Countdown layout */
+#countdown-timer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+#countdown-timer .time-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem 0.5rem;
+  border-radius: 0.75rem;
+}
+
+#countdown-timer span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+#countdown-timer small {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+  
+  /* Floating icons wrapper */
+  /* Floating icons wrapper */
+.countdown-section .countdown-icons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* All icons absolute */
+.countdown-icons img {
+  position: absolute;
+  opacity: 0;
+  max-width: 130px;
+  animation: fadeIn 1.5s ease forwards, float 6s ease-in-out infinite;
+}
+
+/* Random positions around the box */
+.countdown-icons img:nth-child(1) { top: 10%; left: 15%; animation-delay: 1s; }
+.countdown-icons img:nth-child(2) { top: 25%; right: 20%; animation-delay: 1.4s; }
+.countdown-icons img:nth-child(3) { top: 40%; left: 5%; animation-delay: 1.6s; }
+.countdown-icons img:nth-child(4) { top: 20%; right: 10%; animation-delay: 1.8s; }
+.countdown-icons img:nth-child(5) { bottom: 15%; left: 20%; animation-delay: 2s; }
+.countdown-icons img:nth-child(6) { bottom: 25%; right: 25%; animation-delay: 2.5s; }
+.countdown-icons img:nth-child(7) { top: 15%; right: 35%; animation-delay: 2.7s; }
+.countdown-icons img:nth-child(8) { bottom: 10%; left: 35%; animation-delay: 3s; }
+.countdown-icons img:nth-child(9) { top: 50%; right: 5%; animation-delay: 3.30s; }
+.countdown-icons img:nth-child(10) { top: 67%; right: 37%; animation-delay: 3.6s; }
+
+
+/* Floating effect */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+  
+  /* Entry directions */
+  .float-left { animation: slideLeft 2s ease forwards, float 6s ease-in-out infinite; }
+  .float-right { animation: slideRight 2s ease forwards, float 6s ease-in-out infinite; }
+  
+  /* Keyframes */
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  @keyframes slideLeft {
+    from { transform: translateX(-120px) scale(0.8); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { transform: translateX(120px) scale(0.8); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  </style>
+  
+  <script>
+  // ================= DYNAMIC COUNTDOWN =================
+  function startCountdown(targetDate) {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+  
+      if (distance <= 0) {
+        clearInterval(timer);
+        document.getElementById("countdown-timer").innerHTML = "🎉 We Are Live!";
+        return;
+      }
+  
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      document.getElementById("days").textContent = days.toString().padStart(2, "0");
+      document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+    }, 1000);
+  }
+  
+  // Example: Launch in 10 days
+  const launchDate = new Date();
+  launchDate.setDate(launchDate.getDate() + 10);
+  startCountdown(launchDate.getTime());
+  </script>
+  
