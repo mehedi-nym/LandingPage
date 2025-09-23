@@ -27,8 +27,10 @@
   <!-- Scene 2 -->
 <div class="section video-section" id="scene-2">
   <div class="overlay">
-  <h1 class="scene-title-right">Design. Speed. Reliability.</h1>
-  <p>One more scroll to the countdown</p>
+  <h1 class="scene-title-right">Shaping the industry’s future with AI</h1>
+  <div class="typewriter">
+  <p>Why We're More Innovative Than Others</p>
+  </div>
   </div>
   <video id="vid-scene-2" muted playsinline preload="metadata" loop poster="img/vid2-poster.png">
   <source src="videos/vid2.mp4" type="video/mp4">
@@ -43,9 +45,21 @@
   </div> 
   
 
-  <div class="section" id="scene-3" style="background:linear-gradient(180deg,#060607,#07070a);">
-    <div class="overlay"><h1 style="opacity:.08;font-size:48px">Scene 3 (placeholder)</h1></div>
+  <!-- Scene 3: Branding Video Section -->
+<div class="section video-section" id="scene-3">
+  <video id="vid-scene-3" muted playsinline preload="metadata" loop poster="img/vid3-poster.png">
+    <source src="videos/vid3.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="overlay">
+    <h1 class="scene-title-left">Stay tuned as we revolutionize travel.</h1>
+    <p style="margin-top: auto; font-size: clamp(16px, 2vw, 20px); opacity: 0.85;">
+      Be part of the change by connecting with us on social media.
+    </p>
   </div>
+  <div class="dark-layer"></div>
+</div>
+
 
   <div id="footer"></div>
 
@@ -157,6 +171,33 @@ fetch("countdown.html")
     ScrollTrigger.create({trigger: scene2,start:'top center',end:'bottom center',onEnter:()=>safePlay(vid2),onEnterBack:()=>safePlay(vid2),onLeave:()=>vid2.pause(),onLeaveBack:()=>vid2.pause()});
     gsap.from('.scene-title-right',{x:200,opacity:0,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:scene2,start:'top 80%',toggleActions:'play none none reverse'}});
     gsap.from('#scene-2 .overlay p',{y:40,opacity:0,duration:.9,scrollTrigger:{trigger:scene2,start:'top 78%',toggleActions:'play none none reverse'}});
+
+    // scene 3 video
+    const scene3 = document.getElementById('scene-3');
+const vid3 = document.getElementById('vid-scene-3');
+
+ScrollTrigger.create({
+  trigger: scene3,
+  start: 'top center',
+  end: 'bottom center',
+  onEnter: () => safePlay(vid3),
+  onEnterBack: () => safePlay(vid3),
+  onLeave: () => vid3.pause(),
+  onLeaveBack: () => vid3.pause(),
+});
+
+// Fade in the "Follow us" text
+gsap.from('#scene-3 .overlay p', {
+  opacity: 0,
+  y: 20,
+  duration: 1,
+  scrollTrigger: {
+    trigger: scene3,
+    start: 'top 80%',
+    toggleActions: 'play none none reverse'
+  }
+});
+
 
 
     const dots = document.querySelectorAll('.scroll-nav .dot');
