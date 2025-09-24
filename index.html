@@ -63,7 +63,7 @@
 
   <div id="footer"></div>
 
-  <div class="scroll-hint" id="scrollHint">Scroll to play</div>
+  <div class="scroll-hint" id="scrollHint">Scroll or Click</div>
 
   <!-- Scroll Indicator -->
 <div class="scroll-indicator" id="scrollIndicator"></div>
@@ -74,73 +74,75 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
-<script>
-  // Load countdown.html
-  fetch("countdown.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("countdown").innerHTML = data;
-
-      // ✅ Now run the countdown scripts AFTER content is loaded
-      initCountdownAnimations();
-    });
-
-function initCountdown() {
-  const countdownDate = new Date("2025-12-31T23:59:59").getTime();
-  setInterval(() => {
-    const now = new Date().getTime();
-    const distance = countdownDate - now;
-    if(distance < 0) return;
-
-    document.getElementById("days").innerText = Math.floor(distance / (1000*60*60*24));
-    document.getElementById("hours").innerText = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-    document.getElementById("minutes").innerText = Math.floor((distance % (1000*60*60)) / (1000*60));
-    document.getElementById("seconds").innerText = Math.floor((distance % (1000*60)) / 1000);
-  }, 1000);
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.utils.toArray(".countdown-icons img").forEach((icon, i) => {
-    gsap.fromTo(icon,
-      { opacity: 0, x: i % 2 === 0 ? -150 : 150, y: -50 + i*10, scale: 0.5 },
-      {
-        opacity: 1, x: 0, y: 0, scale: 1,
-        duration: 1.2, delay: i*0.15, ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".countdown-section",
-          start: "top 90%", // trigger when section comes into view
-        },
-        onComplete: () => {
-          gsap.to(icon, { y: "+=12", repeat: -1, yoyo: true, duration: 2.5, ease: "sine.inOut" });
-        }
-      }
-    );
-  });
-}
-
-// After fetching countdown.html
-fetch("countdown.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("countdown").innerHTML = data;
-    initCountdown(); // initialize GSAP & countdown after DOM is ready
-  });
-</script>
-
+  
 
   <script>
+    /* ============================================================
+       1. COUNTDOWN LOADER + ANIMATIONS
+       ============================================================ */
+    function initCountdown() {
+      const countdownDate = new Date("2025-12-31T23:59:59").getTime();
+    
+      // Update countdown every second
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        if (distance < 0) return;
+    
+        document.getElementById("days").innerText = Math.floor(distance / (1000*60*60*24));
+        document.getElementById("hours").innerText = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        document.getElementById("minutes").innerText = Math.floor((distance % (1000*60*60)) / (1000*60));
+        document.getElementById("seconds").innerText = Math.floor((distance % (1000*60)) / 1000);
+      }, 1000);
+    
+      // GSAP Animations for countdown icons
+      gsap.registerPlugin(ScrollTrigger);
+    
+      gsap.utils.toArray(".countdown-icons img").forEach((icon, i) => {
+        gsap.fromTo(icon,
+          { opacity: 0, x: i % 2 === 0 ? -150 : 150, y: -50 + i*10, scale: 0.5 },
+          {
+            opacity: 1, x: 0, y: 0, scale: 1,
+            duration: 1.2, delay: i*0.15, ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".countdown-section",
+              start: "top 90%",
+            },
+            onComplete: () => {
+              gsap.to(icon, { y: "+=12", repeat: -1, yoyo: true, duration: 2.5, ease: "sine.inOut" });
+            }
+          }
+        );
+      });
+    }
+    
+    // Load countdown.html and init animations
+    fetch("countdown.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("countdown").innerHTML = data;
+        initCountdown();
+      });
+    </script>
+    
+    <script>
+    /* ============================================================
+       2. SCENES (VIDEO CONTROL + TEXT ANIMATIONS)
+       ============================================================ */
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
+    
+    // Helper: safe video play
     function safePlay(video){
       if(!video) return;
       if(video.muted === false) video.muted = true;
       const p = video.play();
       if(p && typeof p.catch === 'function') p.catch(e=>console.warn('play prevented',e));
     }
-
+    
+    /* ---------- Scene 1 ---------- */
     const scene1 = document.getElementById('scene-1');
     const vid1 = document.getElementById('vid-scene-1');
-
+    
     ScrollTrigger.create({
       trigger: scene1,
       start: 'top center',
@@ -150,99 +152,162 @@ fetch("countdown.html")
       onLeave: () => vid1.pause(),
       onLeaveBack: () => vid1.pause(),
     });
-
+    
+    // Title animation
     gsap.from('.scene-title',{
-      y: -80,
-      opacity: 0,
-      duration: 1.05,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: scene1,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      }
+      y: -80, opacity: 0, duration: 1.05, ease: 'power3.out',
+      scrollTrigger: { trigger: scene1, start: 'top 80%', toggleActions: 'play none none reverse' }
     });
-
-    gsap.from('#scene-1 .overlay p',{y:40,opacity:0,duration:.9,scrollTrigger:{trigger:scene1,start:'top 78%',toggleActions:'play none none reverse'}});
-
-    // Scene 2 video and animation (title from right)
+    
+    // Paragraph fade
+    gsap.from('#scene-1 .overlay p',{
+      y:40, opacity:0, duration:.9,
+      scrollTrigger:{ trigger:scene1, start:'top 78%', toggleActions:'play none none reverse' }
+    });
+    
+    /* ---------- Scene 2 ---------- */
     const scene2 = document.getElementById('scene-2');
     const vid2 = document.getElementById('vid-scene-2');
-    ScrollTrigger.create({trigger: scene2,start:'top center',end:'bottom center',onEnter:()=>safePlay(vid2),onEnterBack:()=>safePlay(vid2),onLeave:()=>vid2.pause(),onLeaveBack:()=>vid2.pause()});
-    gsap.from('.scene-title-right',{x:200,opacity:0,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:scene2,start:'top 80%',toggleActions:'play none none reverse'}});
-    gsap.from('#scene-2 .overlay p',{y:40,opacity:0,duration:.9,scrollTrigger:{trigger:scene2,start:'top 78%',toggleActions:'play none none reverse'}});
-
-    // scene 3 video
+    
+    ScrollTrigger.create({
+      trigger: scene2,
+      start:'top center', end:'bottom center',
+      onEnter:()=>safePlay(vid2), onEnterBack:()=>safePlay(vid2),
+      onLeave:()=>vid2.pause(), onLeaveBack:()=>vid2.pause()
+    });
+    
+    // Title animation
+    gsap.from('.scene-title-right',{
+      x:200, opacity:0, duration:1.05, ease:'power3.out',
+      scrollTrigger:{ trigger:scene2, start:'top 80%', toggleActions:'play none none reverse' }
+    });
+    
+    // Paragraph fade
+    gsap.from('#scene-2 .overlay p',{
+      y:40, opacity:0, duration:.9,
+      scrollTrigger:{ trigger:scene2, start:'top 78%', toggleActions:'play none none reverse' }
+    });
+    
+    /* ---------- Scene 3 ---------- */
     const scene3 = document.getElementById('scene-3');
-const vid3 = document.getElementById('vid-scene-3');
-
-ScrollTrigger.create({
-  trigger: scene3,
-  start: 'top center',
-  end: 'bottom center',
-  onEnter: () => safePlay(vid3),
-  onEnterBack: () => safePlay(vid3),
-  onLeave: () => vid3.pause(),
-  onLeaveBack: () => vid3.pause(),
-});
-
-// Fade in the "Follow us" text
-gsap.from('#scene-3 .overlay p', {
-  opacity: 0,
-  y: 20,
-  duration: 1,
-  scrollTrigger: {
-    trigger: scene3,
-    start: 'top 80%',
-    toggleActions: 'play none none reverse'
-  }
-});
-
-
-
+    const vid3 = document.getElementById('vid-scene-3');
+    
+    ScrollTrigger.create({
+      trigger: scene3,
+      start:'top center', end:'bottom center',
+      onEnter:()=>safePlay(vid3), onEnterBack:()=>safePlay(vid3),
+      onLeave:()=>vid3.pause(), onLeaveBack:()=>vid3.pause()
+    });
+    
+    // Fade in text
+    gsap.from('#scene-3 .overlay p',{
+      opacity: 0, y: 20, duration: 1,
+      scrollTrigger:{ trigger: scene3, start: 'top 80%', toggleActions: 'play none none reverse' }
+    });
+    </script>
+    
+    <script>
+    /* ============================================================
+       3. VIDEO HOVER CIRCLE (PLAY/PAUSE INDICATOR)
+       ============================================================ */
+    document.addEventListener("DOMContentLoaded", () => {
+      initVideoCircle();
+    });
+    
+    function initVideoCircle() {
+      const circle = document.getElementById("videoCircle");
+      const videos = document.querySelectorAll(".video-section video");
+    
+      videos.forEach(video => {
+        // Show circle on hover
+        video.addEventListener("mouseenter", () => {
+          circle.style.opacity = 1;
+          circle.textContent = video.paused ? "Play" : "Pause";
+        });
+    
+        // Hide circle on leave
+        video.addEventListener("mouseleave", () => {
+          circle.style.opacity = 0;
+        });
+    
+        // Move circle with cursor
+        video.addEventListener("mousemove", (e) => {
+          const rect = video.getBoundingClientRect();
+          let x = e.clientX, y = e.clientY;
+          x = Math.max(rect.left, Math.min(x, rect.right));
+          y = Math.max(rect.top, Math.min(y, rect.bottom));
+          circle.style.left = x + "px";
+          circle.style.top = y + "px";
+        });
+    
+        // Toggle play/pause on click
+        video.addEventListener("click", () => {
+          if (video.paused) {
+            video.play();
+            circle.textContent = "Pause";
+          } else {
+            video.pause();
+            circle.textContent = "Play";
+          }
+        });
+      });
+    }
+    </script>
+    
+    <script>
+    /* ============================================================
+       4. SECTION NAVIGATION DOTS
+       ============================================================ */
     const dots = document.querySelectorAll('.scroll-nav .dot');
     const sections = document.querySelectorAll('.section');
-
+    
     function setActiveDot(index){
       dots.forEach(d=>d.classList.remove('active'));
       if(dots[index]) dots[index].classList.add('active');
     }
-
+    
+    // Scene 1 dot trigger
     ScrollTrigger.create({
       trigger: scene1,
-      start: 'top center',
-      end: 'bottom center',
+      start: 'top center', end: 'bottom center',
       onEnter: () => setActiveDot(0),
       onEnterBack: () => setActiveDot(0)
     });
-
+    
+    // Dot click → scroll to section
     dots.forEach(dot=>{
       dot.addEventListener('click',()=>{
         const target = dot.dataset.target;
         gsap.to(window,{duration:1,scrollTo:{y:target,autoKill:true}});
       });
     });
-
+    
+    // Reduced motion accessibility
     if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       document.querySelectorAll('video').forEach(v=>v.pause());
       document.getElementById('scrollHint').textContent = 'Reduced motion — videos paused';
     }
-
+    
+    // Autoplay on first touch
     window.addEventListener('touchstart',()=>{ safePlay(vid1); },{once:true});
-
+    
+    // Load header/footer dynamically
     async function loadPart(id,file){
       try{
         const r = await fetch(file);
         if(!r.ok) return;
         const html = await r.text();
         document.getElementById(id).innerHTML = html;
-      }catch(e){ }
+      }catch(e){}
     }
     loadPart('header','header.html');
     loadPart('footer','footer.html');
-  </script>
-  <!-- section Indicator --> 
-  <script>
+    </script>
+    
+    <script>
+    /* ============================================================
+       5. SECTION INDICATOR (Dynamic Dots with IntersectionObserver)
+       ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
       const sections = document.querySelectorAll('.section');
       const indicator = document.getElementById('scrollIndicator');
@@ -251,20 +316,16 @@ gsap.from('#scene-3 .overlay p', {
       sections.forEach((sec, i) => {
         const dot = document.createElement('div');
         dot.classList.add('dot');
-        if (i === 0) dot.classList.add('active'); // first dot active
+        if (i === 0) dot.classList.add('active');
         dot.addEventListener('click', () => {
-          gsap.to(window, {
-            duration: 1,
-            scrollTo: sec,
-            ease: "power2.inOut"
-          });
+          gsap.to(window, { duration: 1, scrollTo: sec, ease: "power2.inOut" });
         });
         indicator.appendChild(dot);
       });
     
       const dots = indicator.querySelectorAll('.dot');
     
-      // Track active section using IntersectionObserver
+      // Track active section
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -273,12 +334,48 @@ gsap.from('#scene-3 .overlay p', {
             dots[index].classList.add('active');
           }
         });
-      }, { threshold: 0.5 }); // 50% in view
+      }, { threshold: 0.5 });
     
       sections.forEach(sec => observer.observe(sec));
     });
     </script>
     
-  
+    <script>
+    /* ============================================================
+       6. SCROLL HINT (Scroll to Next Section, Hide on Last)
+       ============================================================ */
+    const scrollHint = document.getElementById('scrollHint');
+    
+    function getCurrentSectionIndex() {
+      let index = 0;
+      sections.forEach((sec, i) => {
+        const rect = sec.getBoundingClientRect();
+        if(rect.top <= window.innerHeight/2 && rect.bottom >= window.innerHeight/2){
+          index = i;
+        }
+      });
+      return index;
+    }
+    
+    // Click scroll to next
+    scrollHint.addEventListener('click', () => {
+      const currentIndex = getCurrentSectionIndex();
+      const nextIndex = Math.min(currentIndex + 1, sections.length - 1);
+      const nextSection = sections[nextIndex];
+      if(nextSection) {
+        gsap.to(window, {duration: 1, scrollTo: nextSection, autoKill:true});
+      }
+    });
+    
+    // Hide on last section
+    window.addEventListener('scroll', () => {
+      const currentIndex = getCurrentSectionIndex();
+      scrollHint.style.display = (currentIndex === sections.length - 1) ? 'none' : 'block';
+    });
+    </script>
+    
+    
+    
+    <div id="videoCircle" class="video-circle">Play</div>
 </body>
 </html>

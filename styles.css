@@ -22,11 +22,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
 .section .overlay{margin-top:2rem}
 .section video{margin-bottom:3rem}
 
-/* Left vertical dot nav */
-.scroll-nav{position:fixed;left:28px;top:50%;transform:translateY(-50%);z-index:9999}
-.scroll-nav ul{list-style:none;margin:0;padding:0}
-.scroll-nav .dot{width:12px;height:12px;border-radius:50%;background:var(--muted);margin:12px 0;cursor:pointer;box-shadow:none;transition:all .28s cubic-bezier(.2,.9,.2,1);}
-.scroll-nav .dot.active{background:var(--accent);transform:scale(1.25);box-shadow:0 0 14px 4px rgba(0,209,255,.12),0 0 28px rgba(0,209,255,.07)}
+
 
 /* Scroll Indicator */
 .scroll-indicator {
@@ -41,23 +37,49 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
 }
 
 .scroll-indicator .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.7); /* visible */
+  background: rgba(255, 255, 255, 0.64); /* visible */
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .scroll-indicator .dot.active {
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent);
+  width: 8px;
+  height: 8px;
+  background: #f525bd;
+  box-shadow: 0 0 12px #f525bd;
   transform: scale(1.2);
 }
 
 
 /* Scroll hint */
-.scroll-hint{position:fixed;right:24px;bottom:24px;background:rgba(255,255,255,0.04);padding:.5rem 1rem;border-radius:999px;font-size:13px;z-index:999}
+#scrollHint {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: rgba(255,255,255,0.04);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 13px;
+  z-index: 999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+#scrollHint:hover {
+  box-shadow: 0 0 12px 4px rgba(0,209,255,0.6), 0 0 24px 8px rgba(0,209,255,0.4);
+  animation: glowBorder 1.5s infinite alternate;
+}
+
+@keyframes glowBorder {
+  0% { box-shadow: 0 0 6px 2px #f863d0; }
+  50% { box-shadow: 0 0 12px 4px #f750ca; }
+  100% { box-shadow: 0 0 18px 6px #f525bd; }
+}
+
 
 @media (max-width:720px){
   .scroll-nav{left:12px}
@@ -121,13 +143,14 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
 }
 
 .site-footer .footer-nav a:hover {
-  opacity: 0.6;
+  color: #f525bd;
 }
 
 .site-footer .copyright {
   font-size: 0.8rem;
-  opacity: 0.7;
+  opacity: 1;
   white-space: nowrap;
+  color: #ffffff;
 }
 
 
@@ -223,5 +246,72 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
   from, to { border-color: transparent }
   50% { border-color: orange; }
 }
+.logo-footer{
+  background-color: transparent;
+  border-radius: 50%;
+}
+.logo-footer:hover {
+  animation: glowBorder 1.5s infinite alternate;
+}
+/* Circle cursor for video */
+.video-circle {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+  pointer-events: none; /* let clicks go through */
+  transform: translate(-50%, 50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(5px);
+  z-index: 5;
+}
+.video-section video{
+  cursor: none;
+}
+
+
+
+
+
+
+
+
+
   
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .countdown-section {
+    padding: 1.5rem;
+  }
+
+  .countdown-box {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .countdown-box h2 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  #countdown-timer {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  #countdown-timer span {
+    font-size: 2rem;
+  }
+}
+
 
