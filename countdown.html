@@ -1,6 +1,6 @@
 <div class="countdown-section">
     <div class="countdown-box">
-      <h2>A New Era Begins Soon</h2>
+      <h2>New Era Begins</h2>
       <p>We’re crafting something extraordinary that will redefine the way you travel. Stay with us-the future is almost here.</p>
       
       <div id="countdown-timer">
@@ -127,10 +127,10 @@
   position: absolute;
   opacity: 0;
   max-width: 120px;
-  animation: fadeIn 1.5s ease forwards, float 6s ease-in-out infinite;
+  animation: fadeIn 3.5s ease forwards, float 20s ease-in-out infinite;
    /* Neon glow */
-  filter: drop-shadow(0 0 3px #ff6cd8)
-          drop-shadow(0 0 6px #1c18ff);
+  filter: drop-shadow(0 0 1px #00d1ff)
+          drop-shadow(0 0 2px #00d1ff);
 }
 
 /* Random positions around the box */
@@ -147,8 +147,8 @@
 .countdown-icons img:nth-child(11) { bottom: 5%; left: 5%; animation-delay: 4s; }
 /* Different sizes */
 .icon-small { max-width: 30px; }
-.icon-medium { max-width: 60px; }
-.icon-large { max-width: 130px; }
+.icon-medium { max-width: 50px; }
+.icon-large { max-width: 70px; }
 
 /* Floating effect */
 @keyframes float {
@@ -184,54 +184,24 @@
   @keyframes neonPulse {
   0%, 100% {
     filter: drop-shadow(0 0 1px #00d1ff)
-            drop-shadow(0 0 2px #00d1ff)
-            drop-shadow(0 0 3px #00d1ff);
+            drop-shadow(0 0 1.5px #00d1ff)
+            drop-shadow(0 0 2px #00d1ff);
   }
   50% {
     filter: drop-shadow(0 0 1px #00d1ff)
-            drop-shadow(0 0 2px #00d1ff)
-            drop-shadow(0 0 3px #00d1ff);
+            drop-shadow(0 0 1.5px #00d1ff)
+            drop-shadow(0 0 2px #00d1ff);
   }
 }
 
 .countdown-icons img {
   position: absolute;
   opacity: 0;
-  max-width: 130px;
+  max-width: 70px;
   animation: fadeIn 1.5s ease forwards, float 6s ease-in-out infinite, neonPulse 2s ease-in-out infinite;
 }
 
 
   </style>
   
-  <script>
-  // ================= DYNAMIC COUNTDOWN =================
-  function startCountdown(targetDate) {
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-  
-      if (distance <= 0) {
-        clearInterval(timer);
-        document.getElementById("countdown-timer").innerHTML = "🎉 We Are Live!";
-        return;
-      }
-  
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-      document.getElementById("days").textContent = days.toString().padStart(2, "0");
-      document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
-    }, 1000);
-  }
-  
-  // Example: Launch in 10 days
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 10);
-  startCountdown(launchDate.getTime());
-  </script>
   

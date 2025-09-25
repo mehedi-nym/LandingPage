@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ryoko — Section 1 (Scroll-driven)</title>
+  <title>Ryoko</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div id="header"></div>
 
+
+
   <!-- Scene 1 -->
   <div class="section video-section" id="scene-1">
     <div class="overlay">
-      <h1 class="scene-title">Travel Reimagined</h1>
+      <h1 class="scene-title">Travel Re-Imagined</h1>
       <div class="typewriter">
         <p>Scroll down to reveal the Adventure.</p>
       </div>
@@ -27,7 +29,7 @@
   <!-- Scene 2 -->
 <div class="section video-section" id="scene-2">
   <div class="overlay">
-  <h1 class="scene-title-right">Shaping the industry’s future with AI</h1>
+  <h1 class="scene-title-right">Shaping The Industry’s Future </h1>
   <div class="typewriter">
   <p>Why We're More Innovative Than Others</p>
   </div>
@@ -38,6 +40,21 @@
   </video>
   <div class="dark-layer"></div>
   </div>
+
+  <!-- Scene 2.5: Extra Video Section -->
+<div class="section video-section" id="scene-2-5">
+  <video id="vid-scene-2-5" muted playsinline preload="metadata" loop poster="img/vid2-5-poster.png">
+    <source src="videos/ai.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  
+  <div class="overlay">
+    <h1 class="scene-title-right">Introducing Personalized Travel Assistant, Powered by AI</h1>
+  </div>
+  <div class="dark-layer"></div>
+</div>
+
+
   <!-- placeholders for next sections (kept minimal in this step) -->
 
    <div class="section" id="countdown-section" style="background:linear-gradient(180deg,#0b0b0d,#0b0b0d);">
@@ -59,6 +76,7 @@
   </div>
   <div class="dark-layer"></div>
 </div>
+<button id="muteToggle" style="display:none;">Mute</button>
 
 
   <div id="footer"></div>
@@ -81,7 +99,7 @@
        1. COUNTDOWN LOADER + ANIMATIONS
        ============================================================ */
     function initCountdown() {
-      const countdownDate = new Date("2025-12-31T23:59:59").getTime();
+      const countdownDate = new Date("2025-10-15T23:59:59").getTime();
     
       // Update countdown every second
       setInterval(() => {
@@ -124,6 +142,37 @@
         initCountdown();
       });
     </script>
+
+    <script>
+      function headerCountdown() {
+    const countdownDate = new Date("2025-10-15T23:59:59").getTime();
+  
+    function updateHeaderCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+  
+      if (distance <= 0) {
+        document.querySelector(".header-countdown .time").innerText = "LAUNCHED 🚀";
+        return;
+      }
+  
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      document.getElementById("header-days").innerText = days.toString().padStart(2, "0");
+      document.getElementById("header-hours").innerText = hours.toString().padStart(2, "0");
+      document.getElementById("header-minutes").innerText = minutes.toString().padStart(2, "0");
+      document.getElementById("header-seconds").innerText = seconds.toString().padStart(2, "0");
+    }
+  
+    // Run immediately, then every second
+    updateHeaderCountdown();
+    setInterval(updateHeaderCountdown, 1000);
+  }
+  
+    </script>
     
     <script>
     /* ============================================================
@@ -131,6 +180,18 @@
        ============================================================ */
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     
+    document.querySelectorAll('.video-section video').forEach(vid => {
+      vid.muted = true;        // start muted (autoplay safe)
+      vid.volume = 0.2;        // limit sound level
+    });
+
+    window.addEventListener('click', () => {
+  document.querySelectorAll('.video-section video').forEach(vid => {
+    vid.muted = false;     // unmute
+  });
+}, { once: true });
+
+
     // Helper: safe video play
     function safePlay(video){
       if(!video) return;
@@ -187,6 +248,34 @@
       y:40, opacity:0, duration:.9,
       scrollTrigger:{ trigger:scene2, start:'top 78%', toggleActions:'play none none reverse' }
     });
+
+    /* -------- Scene 2.5 ----------*/
+    const scene25 = document.getElementById('scene-2-5');
+const vid25 = document.getElementById('vid-scene-2-5');
+
+ScrollTrigger.create({
+  trigger: scene25,
+  start: 'top center',
+  end: 'bottom center',
+  onEnter: () => safePlay(vid25),
+  onEnterBack: () => safePlay(vid25),
+  onLeave: () => vid25.pause(),
+  onLeaveBack: () => vid25.pause(),
+});
+
+// Optional title animation
+gsap.from('#scene-2-5 .title', {
+  x: 150,
+  opacity: 0,
+  duration: 1,
+  ease: 'power3.out',
+  scrollTrigger: {
+    trigger: '#scene-2-5',
+    start: 'top 80%',
+    toggleActions: 'play none none reverse'
+  }
+});
+
     
     /* ---------- Scene 3 ---------- */
     const scene3 = document.getElementById('scene-3');
@@ -204,8 +293,24 @@
       opacity: 0, y: 20, duration: 1,
       scrollTrigger:{ trigger: scene3, start: 'top 80%', toggleActions: 'play none none reverse' }
     });
+    // mute button 
+    const muteBtn = document.getElementById('muteToggle');
+    let isMuted = false;
+
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      document.querySelectorAll('.video-section video').forEach(vid => {
+        vid.muted = isMuted;
+      });
+      muteBtn.textContent = isMuted ? 'Unmute' : 'Mute';
+    });
+
+
+
+
     </script>
     
+
     <script>
     /* ============================================================
        3. VIDEO HOVER CIRCLE (PLAY/PAUSE INDICATOR)
@@ -300,8 +405,28 @@
         document.getElementById(id).innerHTML = html;
       }catch(e){}
     }
-    loadPart('header','header.html');
-    loadPart('footer','footer.html');
+    async function loadPart(id, file, callback) {
+  try {
+    const r = await fetch(file);
+    if (!r.ok) return;
+    const html = await r.text();
+    document.getElementById(id).innerHTML = html;
+    
+    // Run callback after content is injected
+    if (callback && typeof callback === "function") callback();
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+// Load header and initialize header countdown
+loadPart('header', 'header.html', () => {
+  headerCountdown(); 
+});
+
+
+loadPart('footer', 'footer.html');
+
     </script>
     
     <script>

@@ -272,18 +272,11 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
   transition: opacity 0.2s ease;
   background: rgba(0,0,0,0.25);
   backdrop-filter: blur(5px);
-  z-index: 5;
+  z-index: 55555;
 }
 .video-section video{
   cursor: none;
 }
-
-
-
-
-
-
-
 
 
   
@@ -312,6 +305,35 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-famil
   #countdown-timer span {
     font-size: 2rem;
   }
+}
+
+.header-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: monospace, sans-serif;
+  font-size: 0.85rem;
+  color: #fff;
+  margin-left: auto; /* push it to the right */
+}
+.header-countdown:hover {
+  border: 2px solid #f525bea9;
+}
+
+.header-countdown .label {
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.8;
+  margin-right: 10px;
+  letter-spacing: 1px;
+}
+
+.header-countdown .time {
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 
