@@ -41,10 +41,8 @@
   </div>
   
   <style>
-  /* ================= COUNTDOWN SECTION ================= */
 
-  
-  /* Countdown card */
+/* Countdown card */
 .countdown-box {
   position: relative;              /* ensures z-index works */
   z-index: 999;                    /* on top of everything */
@@ -73,7 +71,6 @@
     0 15px 40px rgba(0, 0, 0, 0.7),
     0 0 20px rgba(0, 209, 255, 0.6); /* neon accent glow */
 }
-
 
 .countdown-box h2 {
   margin: 0 0 0.5rem;
@@ -113,38 +110,33 @@
   text-transform: uppercase;
   color: var(--muted);
 }
-  
-  /* Floating icons wrapper */
+
+/* Floating icons wrapper */
 .countdown-section .countdown-icons {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  z-index: 2;
+  z-index: 1001;
+}
+.countdown-icons img {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
-/* All icons absolute */
+/* Base style for all icons */
 .countdown-icons img {
   position: absolute;
   opacity: 0;
-  max-width: 120px;
-  animation: fadeIn 3.5s ease forwards, float 20s ease-in-out infinite;
-   /* Neon glow */
-  filter: drop-shadow(0 0 1px #00d1ff)
-          drop-shadow(0 0 2px #00d1ff);
+  max-width: 70px;
+  animation: fadeIn 1.5s ease forwards, float 6s ease-in-out infinite, neonPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 1px #00d1ff) drop-shadow(0 0 2px #00d1ff);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
+.countdown-icons img:hover {
+    scale: 2.5 !important; /* increase size on hover */
+    filter: drop-shadow(0 0 4px #00d1ff) drop-shadow(0 0 8px #00d1ff);
+    z-index: 1002; /* keep hovered icon above others */
+  }
 
-/* Random positions around the box */
-.countdown-icons img:nth-child(1) { top: 10%; left: 15%; animation-delay: 1s; }
-.countdown-icons img:nth-child(2) { top: 25%; right: 20%; animation-delay: 1.4s; }
-.countdown-icons img:nth-child(3) { top: 40%; left: 5%; animation-delay: 1.6s; }
-.countdown-icons img:nth-child(4) { top: 20%; right: 10%; animation-delay: 1.8s; }
-.countdown-icons img:nth-child(5) { bottom: 15%; left: 20%; animation-delay: 2s; }
-.countdown-icons img:nth-child(6) { bottom: 15%; right: 15%; animation-delay: 2.5s; }
-.countdown-icons img:nth-child(7) { top: 15%; right: 35%; animation-delay: 2.7s; }
-.countdown-icons img:nth-child(8) { bottom: 10%; left: 35%; animation-delay: 3s; }
-.countdown-icons img:nth-child(9) { top: 50%; right: 5%; animation-delay: 3.30s; }
-.countdown-icons img:nth-child(10) { top: 67%; right: 37%; animation-delay: 3.6s; }
-.countdown-icons img:nth-child(11) { bottom: 5%; left: 5%; animation-delay: 4s; }
 /* Different sizes */
 .icon-small { max-width: 30px; }
 .icon-medium { max-width: 50px; }
@@ -153,53 +145,86 @@
 /* Floating effect */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-15px); }
 }
+
+/* Fade-in */
 @keyframes fadeIn {
-  to { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }   /* <- make sure opacity becomes 1 */
 }
 
-  
-  /* Entry directions */
-  .float-left { animation: slideLeft 2s ease forwards, float 6s ease-in-out infinite; }
-  .float-right { animation: slideRight 2s ease forwards, float 6s ease-in-out infinite; }
-  
-  /* Keyframes */
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-  @keyframes slideLeft {
-    from { transform: translateX(-120px) scale(0.8); opacity: 0; }
-    to { transform: translateX(0) scale(1); opacity: 1; }
-  }
-  @keyframes slideRight {
-    from { transform: translateX(120px) scale(0.8); opacity: 0; }
-    to { transform: translateX(0) scale(1); opacity: 1; }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-
-  @keyframes neonPulse {
+/* Neon glow pulse */
+@keyframes neonPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 1px #00d1ff)
-            drop-shadow(0 0 1.5px #00d1ff)
-            drop-shadow(0 0 2px #00d1ff);
+    filter: drop-shadow(0 0 1px #00d1ff) drop-shadow(0 0 2px #00d1ff);
   }
   50% {
-    filter: drop-shadow(0 0 1px #00d1ff)
-            drop-shadow(0 0 1.5px #00d1ff)
-            drop-shadow(0 0 2px #00d1ff);
+    filter: drop-shadow(0 0 2px #00d1ff) drop-shadow(0 0 4px #00d1ff);
   }
 }
 
-.countdown-icons img {
-  position: absolute;
-  opacity: 0;
-  max-width: 70px;
-  animation: fadeIn 1.5s ease forwards, float 6s ease-in-out infinite, neonPulse 2s ease-in-out infinite;
+/* Slide animations */
+.float-left { animation: slideLeft 1.5s ease forwards, float 6s ease-in-out infinite, neonPulse 2s ease-in-out infinite; }
+.float-right { animation: slideRight 1.5s ease forwards, float 6s ease-in-out infinite, neonPulse 2s ease-in-out infinite; }
+
+@keyframes slideLeft {
+  from { transform: translateX(-120px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
+@keyframes slideRight {
+  from { transform: translateX(120px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Individual icon positions */
+.countdown-icons img:nth-child(1) { top: 10%; left: 15%; animation-delay: 1s; }
+.countdown-icons img:nth-child(2) { top: 25%; right: 20%; animation-delay: 1.4s; }
+.countdown-icons img:nth-child(3) { top: 40%; left: 5%; animation-delay: 1.6s; }
+.countdown-icons img:nth-child(4) { top: 20%; right: 10%; animation-delay: 1.8s; }
+.countdown-icons img:nth-child(5) { bottom: 15%; left: 20%; animation-delay: 2s; }
+.countdown-icons img:nth-child(6) { bottom: 15%; right: 15%; animation-delay: 2.5s; }
+.countdown-icons img:nth-child(7) { top: 15%; right: 35%; animation-delay: 2.7s; }
+.countdown-icons img:nth-child(8) { bottom: 10%; left: 35%; animation-delay: 3s; }
+.countdown-icons img:nth-child(9) { top: 50%; right: 5%; animation-delay: 3.3s; }
+.countdown-icons img:nth-child(10) { top: 67%; right: 37%; animation-delay: 3.6s; }
+.countdown-icons img:nth-child(11) { bottom: 5%; left: 5%; animation-delay: 4s; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .countdown-box {
+    padding: 1.5rem 1.2rem;
+    max-width: 100%;
+  }
+
+  .countdown-box h2 {
+    font-size: 1.4rem;
+  }
+
+  .countdown-box p {
+    font-size: 0.85rem;
+  }
+
+  #countdown-timer {
+    gap: 0.5rem;
+  }
+
+  #countdown-timer span {
+    font-size: 1.2rem;
+  }
+
+  #countdown-timer small {
+    font-size: 0.7rem;
+  }
+
+  /* Shrink icons on mobile */
+  .icon-small { max-width: 20px; }
+  .icon-medium { max-width: 35px; }
+  .icon-large { max-width: 50px; }
+}
+
+
+
 
 
   </style>

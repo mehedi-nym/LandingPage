@@ -395,7 +395,7 @@ html, body {
   .main-nav.active { display: flex; }
 
   /* Overlay text */
-  .overlay h1 { font-size: clamp(24px, 8vw, 42px); }
+  .overlay h1 { font-size: clamp(24px, 8vw, 42px); margin: 0.5rem 0 0.5rem; padding: 0 1rem; }
   .overlay p { font-size: 14px; }
 
   /* Video */
