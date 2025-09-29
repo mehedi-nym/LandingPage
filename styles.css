@@ -1,0 +1,440 @@
+/* ===============================
+   ROOT VARIABLES & BASE STYLES
+=================================*/
+:root {
+  --bg: #07070a;
+  --text: #ffffff;
+  --accent: #00d1ff;
+  --muted: rgba(255,255,255,0.55);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, Arial, Helvetica, sans-serif;
+}
+
+
+/* ===============================
+   SECTIONS
+=================================*/
+.section {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ===============================
+   VIDEO SECTION
+=================================*/
+.video-section video {
+  position: relative;
+  display: block;
+  margin: 0 auto 5rem auto;
+  width: 80%;
+  max-width: 900px;
+  height: auto;
+  z-index: 1;
+  cursor: none;
+}
+
+.video-section .dark-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+  z-index: 0;
+}
+
+
+/* ===============================
+   OVERLAY CONTENT
+=================================*/
+.overlay {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: clamp(28px, 6vw, 64px);
+  line-height: 1;
+  margin: 2rem 0 .5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.overlay p {
+  opacity: .9;
+  margin: 0;
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+.section .overlay { margin-top: 2rem; }
+.section video { margin-bottom: 3rem; }
+
+
+/* ===============================
+   SCROLL INDICATOR (Dots)
+=================================*/
+.scroll-indicator {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.scroll-indicator .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.64);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-indicator .dot.active {
+  width: 8px;
+  height: 8px;
+  background: #f525bd;
+  box-shadow: 0 0 12px #f525bd;
+  transform: scale(1.2);
+}
+
+
+/* ===============================
+   SCROLL HINT (Bottom Right)
+=================================*/
+#scrollHint {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: rgba(255,255,255,0.04);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 13px;
+  z-index: 999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+#scrollHint:hover {
+  box-shadow: 0 0 12px 4px rgba(0,209,255,0.6),
+              0 0 24px 8px rgba(0,209,255,0.4);
+  animation: glowBorder 1.5s infinite alternate;
+}
+
+@keyframes glowBorder {
+  0%   { box-shadow: 0 0 6px 2px #f863d0; }
+  50%  { box-shadow: 0 0 12px 4px #f750ca; }
+  100% { box-shadow: 0 0 18px 6px #f525bd; }
+}
+
+
+/* ===============================
+   FOOTER
+=================================*/
+.site-footer {
+  position: relative;
+  background: #000;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+.site-footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer .footer-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.site-footer .footer-nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer .footer-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.site-footer .footer-nav a:hover { color: #f525bd; }
+
+.site-footer .copyright {
+  font-size: 0.8rem;
+  opacity: 1;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+
+/* ===============================
+   HEADER
+=================================*/
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.site-header .logo img {
+  max-height: 40px;
+  width: auto;
+}
+
+/* Desktop nav */
+/* Mobile nav hidden offscreen by default */
+.main-nav {
+  position: fixed;
+  top: 0;
+  right: -250px; /* hidden to the right */
+  width: 250px;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  transition: right 0.3s ease;
+  z-index: 9999;
+}
+
+/* Show when active */
+.main-nav.active {
+  right: 0; /* slide in */
+}
+
+/* Style menu items */
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-nav ul li {
+  margin: 1rem 0;
+}
+
+.main-nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.main-nav ul li a:hover {
+  color: #ffcc00;
+}
+
+/* Hamburger button */
+.menu-toggle {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10000;
+  position: relative;
+}
+
+
+
+/* ===============================
+   TYPEWRITER EFFECT
+=================================*/
+.typewriter p {
+  display: inline-block;
+  overflow: hidden;
+  border-right: .15em solid orange;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 36ch; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+
+/* ===============================
+   LOGO FOOTER
+=================================*/
+.logo-footer {
+  background-color: transparent;
+  border-radius: 50%;
+}
+.logo-footer:hover { animation: glowBorder 1.5s infinite alternate; }
+
+
+/* ===============================
+   VIDEO CURSOR (Circle)
+=================================*/
+.video-circle {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+  pointer-events: none;
+  transform: translate(-50%, 50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(5px);
+  z-index: 55555;
+}
+
+
+/* ===============================
+   COUNTDOWN
+=================================*/
+.header-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: monospace, sans-serif;
+  font-size: 0.85rem;
+  color: #fff;
+  margin-left: auto;
+}
+
+.header-countdown:hover {
+  border: 2px solid #f525bea9;
+}
+
+.header-countdown .label {
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.8;
+  margin-right: 10px;
+  letter-spacing: 1px;
+}
+
+.header-countdown .time {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+
+/* ===============================
+   RESPONSIVE STYLES
+=================================*/
+
+/* Small tablets & down */
+@media (max-width: 768px) {
+  /* Header */
+  .menu-toggle { display: block; }
+  .main-nav { display: none; width: 100%; }
+  .main-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .main-nav.active { display: flex; }
+
+  /* Overlay text */
+  .overlay h1 { font-size: clamp(24px, 8vw, 42px); }
+  .overlay p { font-size: 14px; }
+
+  /* Video */
+  .video-section video { width: 95%; margin-bottom: 2rem; }
+
+  /* Countdown */
+  .countdown-section { padding: 1.5rem; }
+  .countdown-box { padding: 1.5rem; border-radius: 0.75rem; }
+  .countdown-box h2 { font-size: 1.25rem; text-align: center; }
+  #countdown-timer {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  #countdown-timer span { font-size: 2rem; }
+
+  /* Footer */
+  .site-footer .footer-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .site-footer .footer-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Scroll UI */
+  .scroll-indicator { right: 12px; gap: 8px; }
+  #scrollHint {
+    right: 12px;
+    bottom: 12px;
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* Video Circle */
+  .video-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+  }
+}
