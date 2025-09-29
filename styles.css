@@ -211,75 +211,11 @@ html, body {
 /* ===============================
    HEADER
 =================================*/
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  box-sizing: border-box;
-}
-
-.site-header .logo img {
-  max-height: 40px;
-  width: auto;
-}
-
-/* Desktop nav */
-/* Mobile nav hidden offscreen by default */
-.main-nav {
-  position: fixed;
-  top: 0;
-  right: -250px; /* hidden to the right */
-  width: 250px;
-  height: 100vh;
-  background: rgba(0,0,0,0.9);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1rem;
-  transition: right 0.3s ease;
-  z-index: 9999;
-}
-
-/* Show when active */
-.main-nav.active {
-  right: 0; /* slide in */
-}
-
-/* Style menu items */
-.main-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.main-nav ul li {
-  margin: 1rem 0;
-}
-
-.main-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.2s;
-}
-
-.main-nav ul li a:hover {
-  color: #ffcc00;
-}
-
-/* Hamburger button */
-.menu-toggle {
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  z-index: 10000;
-  position: relative;
-}
+/* ================= HEADER ================= */ /* Default header layout */ 
+.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.7); color: #fff; box-sizing: border-box; } 
+.site-header .logo img { max-height: 40px; width: auto; } /* Desktop nav */ 
+.site-header .main-nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; } 
+.site-header .main-nav a { color: #fff; text-decoration: none; font-weight: 500; }
 
 
 
@@ -323,7 +259,7 @@ html, body {
    VIDEO CURSOR (Circle)
 =================================*/
 .video-circle {
-  position: absolute;
+  position: fixed;
   width: 70px;
   height: 70px;
   border: 2px solid rgba(255,255,255,0.8);

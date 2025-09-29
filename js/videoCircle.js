@@ -1,11 +1,11 @@
-/* ============================================================
-   3. VIDEO HOVER CIRCLE (PLAY/PAUSE INDICATOR)
-   ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-  const circle = document.getElementById("videoCircle");
   const videos = document.querySelectorAll(".video-section video");
 
   videos.forEach(video => {
+    const circle = document.createElement("div");
+    circle.className = "video-circle";
+    document.body.appendChild(circle);
+
     video.addEventListener("mouseenter", () => {
       circle.style.opacity = 1;
       circle.textContent = video.paused ? "Play" : "Pause";
@@ -16,11 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     video.addEventListener("mousemove", (e) => {
-      const rect = video.getBoundingClientRect();
-      let x = Math.max(rect.left, Math.min(e.clientX, rect.right));
-      let y = Math.max(rect.top, Math.min(e.clientY, rect.bottom));
-      circle.style.left = x + "px";
-      circle.style.top = y + "px";
+      circle.style.left = e.clientX + "px";
+      circle.style.top = e.clientY + "px";
     });
 
     video.addEventListener("click", () => {
