@@ -1,6 +1,3 @@
-/* ============================================================
-   HEADER & FOOTER LOADER
-   ============================================================ */
 async function loadPart(id, file, callback) {
   try {
     const r = await fetch(file);
@@ -14,17 +11,40 @@ async function loadPart(id, file, callback) {
   }
 }
 
-loadPart('header', 'header.html', () => { headerCountdown(); });
-// loader.js (after injecting header.html)
-fetch("header.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("header").innerHTML = data;
+// Load header
+loadPart("header", "header.html", () => {
+  headerCountdown();
 
-    // ✅ initialize hamburger menu script
-    const script = document.createElement("script");
-    script.src = "js/menuToggle.js";
-    document.body.appendChild(script);
-  });
+  // Dark mode toggle
+  let darkmode = localStorage.getItem("darkmode") === "true";
+  const toggle = document.getElementById("modeToggle");
+  
+  const enableDarkMode = () => {
+    document.body.classList.add("darkmode");
+    localStorage.setItem("darkmode", "true");
+    darkmode = true;
+  };
 
-loadPart('footer', 'footer.html');
+  const disableDarkMode = () => {
+    document.body.classList.remove("darkmode");
+    localStorage.setItem("darkmode", "false");
+    darkmode = false;
+  };
+
+  if (darkmode) enableDarkMode();
+
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      darkmode = localStorage.getItem("darkmode") === "true";
+      darkmode !== true ? enableDarkMode() : disableDarkMode();
+    });
+  }
+
+  // ✅ initialize hamburger menu script
+  const script = document.createElement("script");
+  script.src = "js/menuToggle.js";
+  document.body.appendChild(script);
+});
+
+// Load footer
+loadPart("footer", "footer.html");

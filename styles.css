@@ -2,10 +2,39 @@
    ROOT VARIABLES & BASE STYLES
 =================================*/
 :root {
+  /* Light mode (default) */
   --bg: #fffcfd;
   --text: #000000;
   --accent: #00d1ff;
-  --muted: rgba(255,255,255,0.55);
+  --muted: rgba(0, 0, 0, 0.55);
+
+  --footer-bg: #000000;
+  --footer-text: #ffffff;
+
+  --header-bg: rgba(198, 198, 198, 0.3);
+  --header-text: #ffffff;
+
+  --countdown-border: #484848ff;
+  --countdown-text: #484848ff;
+  --countdown-hover: #f525bea9;
+}
+
+.darkmode {
+  /* Dark mode */
+  --bg: #0d0d0d;
+  --text: #ffffff;
+  --accent: #00d1ff;
+  --muted: rgba(255, 255, 255, 0.55);
+
+  --footer-bg: #111111;
+  --footer-text: #f5f5f5;
+
+  --header-bg: rgba(34, 34, 34, 0.7);
+  --header-text: #f5f5f5;
+
+  --countdown-border: #f5f5f5;
+  --countdown-text: #f5f5f5;
+  --countdown-hover: #f525bea9;
 }
 
 html, body {
@@ -44,13 +73,6 @@ html, body {
   z-index: 1;
   cursor: none;
 }
-
-/* .video-section .dark-layer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
-  z-index: 0;
-} */
 
 
 /* ===============================
@@ -99,7 +121,7 @@ html, body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.64);
+  background: var(--muted);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -128,6 +150,7 @@ html, body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 0 0 rgba(0,0,0,0);
+  color: var(--text);
 }
 
 #scrollHint:hover {
@@ -148,8 +171,8 @@ html, body {
 =================================*/
 .site-footer {
   position: relative;
-  background: #000;
-  color: #fff;
+  background: var(--footer-bg);
+  color: var(--footer-text);
   padding: 2rem;
   text-align: center;
   z-index: 1;
@@ -190,7 +213,7 @@ html, body {
 }
 
 .site-footer .footer-nav a {
-  color: #fff;
+  color: var(--footer-text);
   text-decoration: none;
   font-size: 0.75rem;
   letter-spacing: 0.4px;
@@ -204,18 +227,108 @@ html, body {
   font-size: 0.8rem;
   opacity: 1;
   white-space: nowrap;
-  color: #ffffff;
+  color: var(--footer-text);
 }
 
 
 /* ===============================
    HEADER
 =================================*/
-/* ================= HEADER ================= */ /* Default header layout */ 
-.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.7); color: #fff; box-sizing: border-box; } 
-.site-header .logo img { max-height: 40px; width: auto; } /* Desktop nav */ 
-.site-header .main-nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; } 
-.site-header .main-nav a { color: #fff; text-decoration: none; font-weight: 500; }
+/* ===============================
+   HEADER
+=================================*/
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--header-bg);
+  color: var(--header-text);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10; /* keep header above countdown */
+}
+
+.site-header .logo img { 
+  max-height: 40px; 
+  width: auto; 
+}
+
+.site-header .main-nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header .main-nav a {
+  color: var(--header-text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ===============================
+   Dark/Light Mode Toggle
+=================================*/
+.dark-mode-button {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--header-bg);
+  border: 1px solid var(--header-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.dark-mode-button svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--header-text); /* Fix: use header text color, not bg */
+}
+
+.dark-mode-button svg:last-child { display: none; }  
+
+.darkmode .dark-mode-button svg:first-child { display: none; } 
+.darkmode .dark-mode-button svg:last-child { display: block; }   
+
+/* ===============================
+   COUNTDOWN (inside header)
+=================================*/
+.header-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--countdown-border);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: monospace, sans-serif;
+  font-size: 0.85rem;
+  color: var(--countdown-text);
+  margin-left: auto; 
+  margin-right: 0; /* keeps spacing from toggle */
+}
+
+.header-countdown:hover {
+  border-color: var(--countdown-hover);
+}
+
+.header-countdown .label {
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.8;
+  margin-right: 10px;
+  letter-spacing: 1px;
+}
+.header-countdown .time {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
 
 
 
@@ -280,45 +393,11 @@ html, body {
 }
 
 
-/* ===============================
-   COUNTDOWN
-=================================*/
-.header-countdown {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: monospace, sans-serif;
-  font-size: 0.85rem;
-  color: #fff;
-  margin-left: auto;
-}
-
-.header-countdown:hover {
-  border: 2px solid #f525bea9;
-}
-
-.header-countdown .label {
-  text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0.8;
-  margin-right: 10px;
-  letter-spacing: 1px;
-}
-
-.header-countdown .time {
-  font-weight: 600;
-  letter-spacing: 1px;
-}
 
 
 /* ===============================
    RESPONSIVE STYLES
 =================================*/
-
-/* Small tablets & down */
 @media (max-width: 768px) {
   /* Header */
   .menu-toggle { display: block; }
@@ -374,3 +453,4 @@ html, body {
     font-size: 12px;
   }
 }
+
