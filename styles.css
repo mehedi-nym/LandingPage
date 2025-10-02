@@ -57,6 +57,7 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: var(--bg);
 }
 
 
@@ -72,6 +73,7 @@ html, body {
   height: auto;
   z-index: 1;
   cursor: none;
+  
 }
 
 
@@ -234,9 +236,6 @@ html, body {
 /* ===============================
    HEADER
 =================================*/
-/* ===============================
-   HEADER
-=================================*/
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -272,8 +271,8 @@ html, body {
    Dark/Light Mode Toggle
 =================================*/
 .dark-mode-button {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   padding: 0;
   border-radius: 50%;
   background-color: var(--header-bg);
@@ -283,6 +282,10 @@ html, body {
   align-items: center;
   cursor: pointer;
   margin-left: 0;
+}
+.dark-mode-button:hover {
+  box-shadow: 0 0 8px var(--accent);
+  animation: glowBorder 1.5s infinite alternate;
 }
 
 .dark-mode-button svg {
@@ -373,15 +376,15 @@ html, body {
 =================================*/
 .video-circle {
   position: fixed;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border: 2px solid rgba(255,255,255,0.8);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 14px;
+  font-size: 10px;
   text-transform: uppercase;
   pointer-events: none;
   transform: translate(-50%, 50%);
