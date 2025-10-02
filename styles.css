@@ -2,7 +2,7 @@
    ROOT VARIABLES & BASE STYLES
 =================================*/
 :root {
-  --bg: #ffffff;
+  --bg: #fffcfd;
   --text: #ffffff;
   --accent: #00d1ff;
   --muted: rgba(255,255,255,0.55);
@@ -45,12 +45,12 @@ html, body {
   cursor: none;
 }
 
-.video-section .dark-layer {
+/* .video-section .dark-layer {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
   z-index: 0;
-}
+} */
 
 
 /* ===============================
