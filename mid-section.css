@@ -1,0 +1,143 @@
+/* ===============================
+   INTEGRATION SECTION
+=================================*/
+
+#integration-section {
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 5%;
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+  
+  .integration-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1600px;
+    margin: 2rem auto;
+  }
+
+
+  .mid-h2 {
+    font-size: clamp(28px, 6vw, 64px);
+    line-height: 1;
+    margin: 1rem 0.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  
+  .mid-p {
+    opacity: .9;
+    margin: 0 5rem 5rem;
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  .highlight{
+    color: #f525bd;
+    font-size: larger;
+
+  }
+  
+/* ===============================
+   INTEGRATION CARD - MODERN STYLE
+=================================*/
+
+.integration-card {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 2.5rem;
+    text-align: left;
+    width: 300px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #f2f2f2;
+  }
+  
+  .integration-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.228);
+  }
+
+  .icon img {
+    max-width: 55px;
+    max-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .integration-card:hover .icon img {
+    transform: scale(1.25);
+  }
+  
+  /* Title */
+  .integration-card h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 0.6rem;
+  }
+  
+  /* Description */
+  .integration-card p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Learn More Link */
+  .connect-btn {
+    background: none;
+    border: none;
+    color: #f525bd;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+  }
+  
+  .connect-btn:hover {
+    color: #f525bd;
+  }
+  
+  .connect-btn::after {
+    content: "→";
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .connect-btn:hover::after {
+    transform: translateX(4px);
+  }
+  
+  /* Responsive */
+  /* Responsive */
+@media (max-width: 768px) {
+    #integration-section {
+      padding: 60px 4%;
+    }
+  
+    .integration-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .integration-card {
+      width: 100%;
+      max-width: 360px;
+    }
+  }

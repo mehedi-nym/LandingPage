@@ -11,6 +11,18 @@ async function loadPart(id, file, callback) {
   }
 }
 
+loadPart('mid-section', 'mid-section.html').then(() => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'mid-section.css';
+  document.head.appendChild(link);
+
+  const script = document.createElement('script');
+  script.src = 'mid-section.js';
+  document.body.appendChild(script);
+});
+
+
 // Load header
 loadPart("header", "header.html", () => {
   headerCountdown();
