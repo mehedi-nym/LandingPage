@@ -430,7 +430,7 @@ html, body {
 
   /* Video */
   .video-section video { width: 95%; margin-bottom: 2rem; }
-  .section { height: auto; margin-bottom: 2rem; }
+  .section mid-section { height: auto; margin-bottom: 2rem; }
 
   /* Countdown */
   .countdown-section { padding: 1.5rem; }
