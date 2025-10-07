@@ -8,7 +8,7 @@ gsap.from(".integration-card", {
   stagger: 0.3, // one-by-one sequence
   scrollTrigger: {
     trigger: ".integration-container",
-    start: "top 80%", // start animation when section enters
+    start: "top 100%", // start animation when section enters
     end: "bottom 60%",
     scrub: true,
   }

@@ -52,7 +52,7 @@ html, body {
    SECTIONS
 =================================*/
 .section {
-  height: auto;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   display: flex;
