@@ -146,6 +146,7 @@ html, body {
 }
 .countdown-section { height: 100vh; 
   max-height: auto;
+   width: auto;
   position: relative;
   overflow: hidden;
   display: flex;
