@@ -52,7 +52,7 @@ html, body {
    SECTIONS
 =================================*/
 .section {
-  height: 100vh;
+  max-height: auto;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -82,7 +82,7 @@ html, body {
   height: auto;
   z-index: 1;
   cursor: none;
-  
+  border-radius: 20px;
 }
 
 
@@ -144,7 +144,15 @@ html, body {
   box-shadow: 0 0 12px #f525bd;
   transform: scale(1.2);
 }
-
+.countdown-section { height: 100vh; 
+  max-height: auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
 
 /* ===============================
    SCROLL HINT (Bottom Right)
@@ -429,11 +437,11 @@ html, body {
   .overlay p { font-size: 14px; }
 
   /* Video */
-  .video-section video { width: 95%; margin-bottom: 2rem; }
+  .video-section video { width: 80%; height: auto; margin-bottom: 5rem; }
   .section mid-section { height: auto; margin-bottom: 2rem; }
 
   /* Countdown */
-  .countdown-section { padding: 1.5rem; }
+  .countdown-section { padding: 1.5rem; height: 100vh; }
   .countdown-box { padding: 1.5rem; border-radius: 0.75rem; }
   .countdown-box h2 { font-size: 1.25rem; text-align: center; }
   #countdown-timer {
