@@ -51,6 +51,30 @@
   <div class="dark-layer"></div>
   </div>
 
+  <section class="section mid-section" id="reseller-section">
+    <div class="overlay">
+    <div class="container scroll-animate">
+      <!-- Left Section -->
+      <div class="left-section">
+        <h1>Grow Your Business as a <br><span class="highlight">Ryoko</span> Reseller</h1>
+        <p>Join a thriving network of resellers and unlock new revenue streams. Partner with Ryoko to deliver premium solutions to your customers while scaling your business with industry-leading support and competitive margins.</p>
+        <button onclick="window.location.href='https://reseller.ryoko.world'" class="btn">Become a Reseller</button>
+      </div>
+  
+      <!-- Right Section -->
+      <div class="right-section">
+        <div class="red-shape"></div>
+        <div class="image-wrapper">
+          <img src="https://admin.ryoko.world/api/images/file/Join-Reseller-Program-scaled-2.webp" alt="Team collaboration" />
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  
+
+
+
   <!-- Scene 2.5: Extra Video Section -->
 <div class="section video-section" id="scene-2-5">
   <video id="vid-scene-2-5" muted playsinline preload="metadata" loop poster="img/vid2-5-poster.png">
@@ -130,11 +154,25 @@
     <script src="js/scrollHint.js"></script>
     <script src="js/loader.js"></script>
     <script src="mid-section.js"></script>
-<<<<<<< HEAD
-
-=======
+  
+    <script>
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      };
     
->>>>>>> 14eeba9 (index css load part update)
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+    
+      document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
     
     
     <div id="videoCircle" class="video-circle">Play</div>
