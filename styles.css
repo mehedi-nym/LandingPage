@@ -52,7 +52,7 @@ html, body {
    SECTIONS
 =================================*/
 .section {
-  height: 100vh; /* ✅ make full screen */
+  height: auto; /* ✅ make full screen */
   position: relative;
   overflow: hidden;
   display: flex;
@@ -510,7 +510,7 @@ body {
 
 #reseller-section {
   height: 100vh; /* ✅ make it fill the screen */
-  width: 100%;
+  width: fit;
   background: #ffffff;
   color: #1a1a1a;
   padding: 0 2%; /* ✅ remove 100px top/bottom padding conflict */
@@ -601,7 +601,7 @@ body {
 
 #reseller-section .image-wrapper {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   aspect-ratio: 16 / 9;
   border-radius: 20px;
   overflow: hidden;

@@ -1,36 +1,51 @@
+// ===============================
+// Helper: Load an HTML Part
+// ===============================
 async function loadPart(id, file, callback) {
   try {
-    const r = await fetch(file);
-    if (!r.ok) return;
-    const html = await r.text();
-    document.getElementById(id).innerHTML = html;
+    const response = await fetch(file, { cache: "no-cache" });
+    if (!response.ok) return console.error(`Failed to load: ${file}`);
+    const html = await response.text();
+    const container = document.getElementById(id);
+    if (container) container.innerHTML = html;
 
     if (callback && typeof callback === "function") callback();
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(`Error loading ${file}:`, error);
   }
 }
 
-loadPart('mid-section', 'mid-section.html').then(() => {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'mid-section.css';
-  document.head.appendChild(link);
+// ===============================
+// Load Mid Section
+// ===============================
+(async () => {
+  await loadPart("mid-section", "mid-section.html");
 
-  const script = document.createElement('script');
-  script.src = 'mid-section.js';
-  document.body.appendChild(script);
-});
+  // Load CSS dynamically
+  const midStyle = document.createElement("link");
+  midStyle.rel = "stylesheet";
+  midStyle.href = "mid-section.css";
+  document.head.appendChild(midStyle);
 
+  // Load JS after HTML is ready
+  const midScript = document.createElement("script");
+  midScript.src = "mid-section.js";
+  midScript.defer = true;
+  midScript.onload = () => console.log("✅ mid-section.js loaded");
+  midScript.onerror = () => console.error("❌ mid-section.js failed to load");
+  document.body.appendChild(midScript);
+})();
 
-// Load header
+// ===============================
+// Load Header
+// ===============================
 loadPart("header", "header.html", () => {
-  headerCountdown();
+  if (typeof headerCountdown === "function") headerCountdown();
 
   // Dark mode toggle
   let darkmode = localStorage.getItem("darkmode") === "true";
   const toggle = document.getElementById("modeToggle");
-  
+
   const enableDarkMode = () => {
     document.body.classList.add("darkmode");
     localStorage.setItem("darkmode", "true");
@@ -48,15 +63,18 @@ loadPart("header", "header.html", () => {
   if (toggle) {
     toggle.addEventListener("click", () => {
       darkmode = localStorage.getItem("darkmode") === "true";
-      darkmode !== true ? enableDarkMode() : disableDarkMode();
+      darkmode ? disableDarkMode() : enableDarkMode();
     });
   }
 
-  // ✅ initialize hamburger menu script
-  const script = document.createElement("script");
-  script.src = "js/menuToggle.js";
-  document.body.appendChild(script);
+  // ✅ Initialize hamburger menu script
+  const menuScript = document.createElement("script");
+  menuScript.src = "js/menuToggle.js";
+  menuScript.defer = true;
+  document.body.appendChild(menuScript);
 });
 
-// Load footer
+// ===============================
+// Load Footer
+// ===============================
 loadPart("footer", "footer.html");
