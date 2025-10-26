@@ -21,3 +21,10 @@ window.addEventListener("load", () => {
     ScrollTrigger.refresh();
   }, 300);
 });
+
+// ✅ Minimal popup open handler
+document.addEventListener("click", e => {
+  if (e.target.closest(".integration-card:first-child .connect-btn")) {
+    document.getElementById("popupMsg").style.display = "block";
+  }
+});

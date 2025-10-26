@@ -31,7 +31,26 @@ async function loadPart(id, file, callback) {
   const midScript = document.createElement("script");
   midScript.src = "mid-section.js";
   midScript.defer = true;
-  midScript.onload = () => console.log("✅ mid-section.js loaded");
+  midScript.onload = () => {
+    console.log("✅ mid-section.js loaded");
+
+    // ✅ Attach popup logic *after* mid-section has loaded
+    const popupBtn = document.querySelector(".integration-card:first-child .connect-btn");
+    if (popupBtn) {
+      popupBtn.addEventListener("click", () => {
+        const popup = document.getElementById("popupMsg");
+        if (popup) popup.style.display = "block";
+      });
+    }
+
+    // ✅ Add close handler
+    document.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "popupClose") {
+        document.getElementById("popupMsg").style.display = "none";
+      }
+    });
+  };
+
   midScript.onerror = () => console.error("❌ mid-section.js failed to load");
   document.body.appendChild(midScript);
 })();
