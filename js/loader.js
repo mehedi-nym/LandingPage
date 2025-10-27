@@ -27,33 +27,59 @@ async function loadPart(id, file, callback) {
   midStyle.href = "mid-section.css";
   document.head.appendChild(midStyle);
 
-  // Load JS after HTML is ready
-  const midScript = document.createElement("script");
-  midScript.src = "mid-section.js";
-  midScript.defer = true;
-  midScript.onload = () => {
-    console.log("✅ mid-section.js loaded");
+  // ✅ Define popup files by button order
+  const popupFiles = [
+    "popup-simple.html",   // 1st button - Simple & Easy
+    "popup-future.html",   // 2nd - Join the Future
+    "popup-form.html",     // 3rd - One Application Form ✅
+    "popup-draft.html",    // 4th - Need more time?
+    "popup-delivery.html", // 5th - Docs Pickup & Delivery
+    "popup-dynamic.html"   // 6th - Most Dynamic Solution
+  ];
 
-    // ✅ Attach popup logic *after* mid-section has loaded
-    const popupBtn = document.querySelector(".integration-card:first-child .connect-btn");
-    if (popupBtn) {
-      popupBtn.addEventListener("click", () => {
-        const popup = document.getElementById("popupMsg");
-        if (popup) popup.style.display = "block";
-      });
+  // Ensure popup container exists
+  let popupContainer = document.getElementById("popup-container");
+  if (!popupContainer) {
+    popupContainer = document.createElement("div");
+    popupContainer.id = "popup-container";
+    document.body.appendChild(popupContainer);
+  }
+
+  // ✅ Main click handler
+  document.addEventListener("click", async (e) => {
+    // Close popup
+    if (e.target.id === "popupClose") {
+      const popup = document.getElementById("popupMsg");
+      if (popup) popup.remove();
+      return;
     }
 
-    // ✅ Add close handler
-    document.addEventListener("click", (e) => {
-      if (e.target && e.target.id === "popupClose") {
-        document.getElementById("popupMsg").style.display = "none";
-      }
-    });
-  };
+    // Open popup
+    const btn = e.target.closest(".connect-btn");
+    if (!btn) return;
 
-  midScript.onerror = () => console.error("❌ mid-section.js failed to load");
-  document.body.appendChild(midScript);
+    const allBtns = [...document.querySelectorAll(".connect-btn")];
+    const index = allBtns.indexOf(btn);
+    const popupFile = popupFiles[index] || "popup-simple.html";
+
+    try {
+      const response = await fetch(popupFile, { cache: "no-cache" });
+      if (!response.ok) throw new Error(`Failed to load ${popupFile}`);
+
+      const html = await response.text();
+      popupContainer.innerHTML = html;
+
+      // If popup has #popupMsg, show it; else just render as-is
+      const popup = document.getElementById("popupMsg");
+      if (popup) popup.style.display = "block";
+
+      console.log(`✅ Loaded ${popupFile}`);
+    } catch (err) {
+      console.error("❌ Popup load error:", err);
+    }
+  });
 })();
+
 
 // ===============================
 // Load Header
