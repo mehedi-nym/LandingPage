@@ -27,6 +27,12 @@ async function loadPart(id, file, callback) {
   midStyle.href = "mid-section.css";
   document.head.appendChild(midStyle);
 
+  // ✅ Load animation logic (GSAP scroll effect)
+  const midScript = document.createElement("script");
+  midScript.src = "mid-section.js";
+  midScript.defer = true;
+  document.body.appendChild(midScript);
+
   // ✅ Define popup files by button order
   const popupFiles = [
     "popup-simple.html",   // 1st button - Simple & Easy
