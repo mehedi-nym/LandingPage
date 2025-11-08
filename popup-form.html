@@ -1,0 +1,81 @@
+<!-- ✅ Full popup wrapper -->
+<div id="popupMsg" style="
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  background:#fff;
+  color:#000;
+  padding:20px 30px;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  z-index:10000;
+  text-align:center;
+  font-family:inherit;
+  max-width:90vw;"
+">
+  <!-- ✖ Close button -->
+  <span id="popupClose" style="
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:22px;
+    font-weight:bold;
+    color:#555;
+    cursor:pointer;
+  ">✖</span>
+
+  <!-- ✅ Popup Title (optional, consistent with GIF style) -->
+  <p style="
+    font-weight:600;
+    font-size:18px;
+    margin:0 0 15px;
+  ">🧾 One Application Form</p>
+
+  <!-- ✅ Content section -->
+  <div class="family-visa-detail" style="margin-top:5px;">
+    <p style="
+      font-size:15px;
+      color:#333;
+      line-height:1.6;
+      text-align:center;
+      margin-bottom:18px;
+      padding:0 10px;
+    ">
+      Experience the future of Family Visa Application System with 
+      <strong>Ryoko’s Visa Application System</strong>. 
+      Our advanced platform allows you to complete your family visa process 
+      in one single application form — <b>No repeat, No hassle.</b>
+    </p>
+
+    <div class="family-visa-detail-img" style="display:flex; justify-content:center;">
+      <img src="https://admin.ryoko.world/api/images/file/2-min-visa--1.jpg" 
+           alt="2-minute visa process"
+           style="
+             width:90%;
+             max-width:450px;
+             border-radius:10px;
+             box-shadow:0 4px 15px rgba(0,0,0,0.1);
+           ">
+    </div>
+  </div>
+
+  <style>
+    .family-visa-detail-img img:hover {
+      transform: scale(1.03);
+    }
+    @media (max-width: 600px) {
+      #popupMsg {
+        width: 90vw;
+        padding: 15px 20px;
+      }
+      .family-visa-detail p {
+        font-size: 14px;
+      }
+      .family-visa-detail-img img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</div>
