@@ -12,9 +12,6 @@
   --footer-bg: #000000;
   --footer-text: #ffffff;
 
-  --header-bg: rgba(90, 89, 89, 0.9);
-  --header-text: #ffffff;
-
   --countdown-border: #484848ff;
   --countdown-text: #484848ff;
   --countdown-hover: #f525bea9;
@@ -30,9 +27,6 @@
 
   --footer-bg: #111111;
   --footer-text: #f5f5f5;
-
-  --header-bg: rgba(34, 34, 34, 0.7);
-  --header-text: #f5f5f5;
 
   --countdown-border: #f5f5f5;
   --countdown-text: #f5f5f5;
@@ -254,119 +248,6 @@ html, body {
 
 
 /* ===============================
-   HEADER
-=================================*/
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.1); /* adjust opacity */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 0.5px solid rgba(93, 93, 93, 0.054);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  color: var(--header-text);
-  box-sizing: border-box;
-}
-
-/* Prevent content from hiding behind fixed header */
-body {
-  padding-top: 80px; /* match or slightly exceed header height */
-}
-
-
-.site-header .logo img { 
-  max-height: 40px; 
-  width: auto; 
-}
-
-.site-header .main-nav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.site-header .main-nav a {
-  color: var(--header-text);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* ===============================
-   Dark/Light Mode Toggle
-=================================*/
-.dark-mode-button {
-  height: 30px;
-  width: 30px;
-  padding: 0;
-  border-radius: 50%;
-  background-color: var(--header-bg);
-  border: 1px solid var(--header-text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 0;
-}
-.dark-mode-button:hover {
-  box-shadow: 0 0 8px var(--accent);
-  animation: glowBorder 1.5s infinite alternate;
-}
-
-.dark-mode-button svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--header-text); /* Fix: use header text color, not bg */
-}
-
-.dark-mode-button svg:last-child { display: none; }  
-
-.darkmode .dark-mode-button svg:first-child { display: none; } 
-.darkmode .dark-mode-button svg:last-child { display: block; }   
-
-/* ===============================
-   COUNTDOWN (inside header)
-=================================*/
-.header-countdown {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 2px solid var(--countdown-border);
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: monospace, sans-serif;
-  font-size: 0.85rem;
-  color: var(--countdown-text);
-  margin-left: auto; 
-  margin-right: 0; /* keeps spacing from toggle */
-}
-
-.header-countdown:hover {
-  border-color: var(--countdown-hover);
-}
-
-.header-countdown .label {
-  text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0.8;
-  margin-right: 10px;
-  letter-spacing: 1px;
-}
-.header-countdown .time {
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-
-/* ===============================
    TYPEWRITER EFFECT
 =================================*/
 .typewriter p {
@@ -430,26 +311,6 @@ body {
    RESPONSIVE STYLES
 =================================*/
 @media (max-width: 768px) {
-  /* Header */
-  .menu-toggle { 
-    display: block; 
-  }
-  .main-nav {
-    display: none;
-    width: 100%;
-  }
-
-   .dark-mode-button {
-      visibility: visible;
-   }
-
-  .main-nav ul {
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .main-nav.active { display: flex; }
-
   /* Overlay text */
   .overlay h1 { font-size: clamp(24px, 8vw, 42px); margin: 0.5rem 0 0.5rem; padding: 0 1rem; }
   .overlay p { font-size: 14px; }

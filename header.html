@@ -1,36 +1,322 @@
 <!-- header.html -->
+<style>
+  /* Header Styles */
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid rgba(93, 93, 93, 0.054);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    color: var(--header-text, #ffffff);
+    box-sizing: border-box;
+  }
+
+  body {
+    padding-top: 80px;
+  }
+
+  .site-header .logo img {
+    max-height: 40px;
+    width: auto;
+  }
+
+  .site-header .main-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-header .main-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .site-header .main-nav a {
+    color: var(--header-text, #ffffff);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .site-header .main-nav a:hover {
+    color: #f525bd;
+  }
+
+  /* Hamburger menu button - ensures it displays and animates properly */
+  .hamburger-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+  }
+
+  .hamburger-btn span {
+    width: 25px;
+    height: 2.5px;
+    background: var(--header-text, #ffffff);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .hamburger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+
+  .hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+  }
+
+  /* Dark/Light Mode Toggle */
+  .dark-mode-button {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--header-bg, rgba(90, 89, 89, 0.9));
+    border: 1px solid var(--header-text, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 0;
+    transition: all 0.3s ease;
+  }
+
+  .dark-mode-button:hover {
+    box-shadow: 0 0 8px var(--accent, #00d1ff);
+    animation: glowBorder 1.5s infinite alternate;
+  }
+
+  .dark-mode-button svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--header-text, #ffffff);
+  }
+
+  .dark-mode-button svg:last-child {
+    display: none;
+  }
+
+  .darkmode .dark-mode-button svg:first-child {
+    display: none;
+  }
+
+  .darkmode .dark-mode-button svg:last-child {
+    display: block;
+  }
+
+  /* Countdown inside header */
+  .header-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid var(--countdown-border, #484848ff);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-family: monospace, sans-serif;
+    font-size: 0.85rem;
+    color: var(--countdown-text, #484848ff);
+    margin-left: auto;
+    margin-right: 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .header-countdown:hover {
+    border-color: var(--countdown-hover, #f525bea9);
+  }
+
+  .header-countdown .label {
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-right: 10px;
+    letter-spacing: 1px;
+  }
+
+  .header-countdown .time {
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  @keyframes glowBorder {
+    0% {
+      box-shadow: 0 0 6px 2px #f863d0;
+    }
+    50% {
+      box-shadow: 0 0 12px 4px #f750ca;
+    }
+    100% {
+      box-shadow: 0 0 18px 6px #f525bd;
+    }
+  }
+
+  /* Mobile responsive styles - fixes menu display and positioning */
+  @media (max-width: 768px) {
+    .site-header {
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
+
+    .hamburger-btn {
+      display: flex;
+      order: 3;
+    }
+
+    .site-header .logo {
+      order: 1;
+    }
+
+    /* Mobile nav uses fixed positioning for better control */
+    .site-header .main-nav {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.98);
+      width: 100%;
+      flex-direction: column;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .site-header .main-nav.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .site-header .main-nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: 1.5rem;
+      width: 100%;
+    }
+
+    .site-header .main-nav li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 0;
+      text-align: center;
+    }
+
+    .site-header .main-nav li:last-child {
+      border-bottom: none;
+    }
+
+    .header-countdown {
+      margin: 1rem 0 0 0;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .dark-mode-button {
+      margin-top: 1rem;
+    }
+
+    .site-header .logo img {
+      max-height: 32px;
+    }
+  }
+</style>
+
 <header class="site-header">
-    <div class="logo">
-      <img src="https://admin.ryoko.world/api/b2b-landing-documents/file/Logo-B2c.png" alt="Brand Logo">
-    </div>
-  
-    <nav class="main-nav">
-      <ul>
-        <li>
-        <a href="https://career.ryoko.com.bd"
-           style="text-decoration:none;color:var(--text);font-weight:600;transition:0.3s; text-align: center;"
-           onmouseover="this.style.color='#f525bd'"
-           onmouseout="this.style.color='var(--text)'">
+  <div class="logo">
+    <img src="https://admin.ryoko.world/api/b2b-landing-documents/file/Logo-B2c.png" alt="Brand Logo">
+  </div>
+
+  <button class="hamburger-btn" id="hamburgerBtn" type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="main-nav" id="mainNav">
+    <ul>
+      <li>
+        <a href="https://career.ryoko.com.bd" style="text-decoration: none; color: #f525bd; font-weight: 600; transition: 0.3s;"
+           onmouseover="this.style.color='#e31fad'"
+           onmouseout="this.style.color='#f525bd'">
           Career
         </a>
       </li>
-        <li><a href="#countdown-section"><div class="header-countdown">
-          <span class="label">UPCOMING</span>
-          <span class="time">
-            <span id="header-days">00</span>:
-            <span id="header-hours">00</span>:
-            <span id="header-minutes">00</span>:
-            <span id="header-seconds">00</span>
-          </span>
-        </div></a>
+      <li>
+        <a href="#countdown-section">
+          <div class="header-countdown">
+            <span class="label">UPCOMING</span>
+            <span class="time">
+              <span id="header-days">00</span>:
+              <span id="header-hours">00</span>:
+              <span id="header-minutes">00</span>:
+              <span id="header-seconds">00</span>
+            </span>
+          </div>
+        </a>
       </li>
       <li>
-        <button id="modeToggle" class="dark-mode-button">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+        <button id="modeToggle" class="dark-mode-button" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+          </svg>
         </button>
       </li>
-      </ul>
-    </nav>
-  </header>
+    </ul>
+  </nav>
+</header>
 
+<script>
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mainNav = document.getElementById('mainNav');
+
+  hamburgerBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    console.log("[v0] Hamburger clicked, active state:", mainNav.classList.contains('active'));
+    hamburgerBtn.classList.toggle('active');
+    mainNav.classList.toggle('active');
+  });
+
+  // Close menu when a link is clicked
+  const navLinks = mainNav.querySelectorAll('a, button');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (link.tagName !== 'BUTTON' || link.id === 'modeToggle') {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('active');
+      }
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.site-header')) {
+      hamburgerBtn.classList.remove('active');
+      mainNav.classList.remove('active');
+    }
+  });
+</script>
