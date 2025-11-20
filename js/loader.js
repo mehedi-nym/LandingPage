@@ -118,11 +118,6 @@ loadPart("header", "header.html", () => {
     });
   }
 
-  // ✅ Initialize hamburger menu script
-  const menuScript = document.createElement("script");
-  menuScript.src = "js/menuToggle.js";
-  menuScript.defer = true;
-  document.body.appendChild(menuScript);
 });
 
 // ===============================
