@@ -186,3 +186,8 @@
     font-size: 23px;
   }
 }
+
+/* Safety Net: If JS fails to load, make sure cards are visible */
+.integration-card {
+    opacity: 1; /* Default to visible */
+}

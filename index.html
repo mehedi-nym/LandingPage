@@ -9,11 +9,80 @@
   <link rel="stylesheet" href="mid-section.css">
   <link rel="icon" href="https://admin.ryoko.world/api/images/file/Logo-01.webp" type="image/webp">
   <link rel="icon" type="image/png" href="img/icon.png">
-<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+  <style>
+    /* 1. New Wrapper to bind video and button together */
+    .video-wrapper {
+        position: relative;
+        width: 80%;            /* Matches your previous video width */
+        max-width: 900px;      /* Matches your previous max-width */
+        margin: 0 auto 5rem auto; /* Centers the wrapper */
+        z-index: 1;
+    }
+
+    /* 2. Force video to fill this wrapper completely */
+    .video-wrapper video {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        display: block;
+        border-radius: 20px;
+    }
+
+    /* 3. Button Positioned relative to the wrapper (Inside the video) */
+    .mute-btn {
+        position: absolute;
+        top: 20px;      /* 20px from top of VIDEO */
+        right: 20px;    /* 20px from right of VIDEO */
+        z-index: 50;    /* On top of video */
+        
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.4); 
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+        outline: none;
+        padding: 0;
+    }
+
+    .mute-btn:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+        border-color: #fff;
+    }
+
+    .mute-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    /* Icon Toggle Logic */
+    .icon-sound { display: none; }
+    .icon-muted { display: block; }
+    
+    .mute-btn.sound-active .icon-muted { display: none; }
+    .mute-btn.sound-active .icon-sound { display: block; }
+
+    /* Mobile Adjustment */
+    @media (max-width: 768px) {
+        .mute-btn { top: 15px; right: 15px; width: 35px; height: 35px; }
+    }
+  </style>
 </head>
 <body>
   <div id="header"></div>
-  <!-- Scene 1 -->
+  
   <div class="section video-section" id="scene-1">
     <div class="overlay">
       <h1 class="scene-title">Travel Re-Imagined</h1>
@@ -21,47 +90,58 @@
         <p>Scroll down to reveal the Adventure.</p>
       </div>
     </div>
-    <video id="vid-scene-1" muted playsinline preload="metadata" loop poster="img/vid1-poster.png">
-      <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid1.mp4" media="(min-width: 769px)" type="video/mp4">
-       <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/Vid1_mob.mp4" media="(max-width: 767px)" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <div class="dark-layer"></div>
+    
+    <div class="video-wrapper">
+        <video id="vid-scene-1" muted playsinline preload="metadata" loop poster="img/vid1-poster.png">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid1.mp4" media="(min-width: 769px)" type="video/mp4">
+           <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/Vid1_mob.mp4" media="(max-width: 767px)" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="dark-layer"></div>
+
+        <button class="mute-btn" aria-label="Toggle Sound">
+            <svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+    </div>
   </div>
 
   <section id="mid-section" class="section mid-section">
-  <div class="overlay">
-    
-  </div>
-</section>
+    <div class="overlay"></div>
+  </section>
 
-  <!-- Scene 2 -->
-<div class="section video-section" id="scene-2">
-  <div class="overlay">
-  <h1 class="scene-title-right">Shaping The Industry’s Future </h1>
-  <div class="typewriter">
-  <p>Why We're More Innovative Than Others</p>
-  </div>
-  </div>
-  <video id="vid-scene-2" muted playsinline preload="metadata" loop poster="img/vid2-poster.png">
-  <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid2.mp4" media="(min-width: 769px)" type="video/mp4">
-  <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid2_mob.mp4" media="(max-width: 767px)" type="video/mp4">
-  Your browser does not support HTML5 video.
-  </video>
-  <div class="dark-layer"></div>
+  <div class="section video-section" id="scene-2">
+    <div class="overlay">
+      <h1 class="scene-title-right">Shaping The Industry’s Future </h1>
+      <div class="typewriter">
+        <p>Why We're More Innovative Than Others</p>
+      </div>
+    </div>
+
+    <div class="video-wrapper">
+        <video id="vid-scene-2" muted playsinline preload="metadata" loop poster="img/vid2-poster.png">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid2.mp4" media="(min-width: 769px)" type="video/mp4">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid2_mob.mp4" media="(max-width: 767px)" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="dark-layer"></div>
+
+        <button class="mute-btn" aria-label="Toggle Sound">
+            <svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+    </div>
   </div>
 
   <section class="section mid-section" id="reseller-section">
     <div class="overlay">
     <div class="container scroll-animate">
-      <!-- Left Section -->
       <div class="left-section">
         <h1>Grow Your Business as a <br><span class="highlight">Ryoko</span> Reseller</h1>
         <p>Join a thriving network of resellers and unlock new revenue streams. Partner with Ryoko to deliver premium solutions to your customers while scaling your business with industry-leading support and competitive margins.</p>
         <button onclick="window.location.href='https://reseller.ryoko.world'" class="btn">Become a Reseller</button>
       </div>
   
-      <!-- Right Section -->
       <div class="right-section">
         <div class="red-shape"></div>
         <div class="image-wrapper">
@@ -72,65 +152,70 @@
   </div>
   </section>
   
+  <div class="section video-section" id="scene-2-5">
+    <br>
+    
+    <div class="video-wrapper">
+        <video id="vid-scene-2-5" muted playsinline preload="metadata" loop poster="img/vid2-5-poster.png">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/ai.mp4" media="(min-width: 769px)" type="video/mp4">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/ai_mob.mp4" media="(max-width: 767px)" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="dark-layer"></div>
 
+        <button class="mute-btn" aria-label="Toggle Sound">
+            <svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+    </div>
 
-
-  <!-- Scene 2.5: Extra Video Section -->
-<div class="section video-section" id="scene-2-5">
-  <br>
-  <video id="vid-scene-2-5" muted playsinline preload="metadata" loop poster="img/vid2-5-poster.png">
-    <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/ai.mp4" media="(min-width: 769px)" type="video/mp4">
-    <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/ai_mob.mp4" media="(max-width: 767px)" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>
-  <div class="overlay">
-    <h1 class="scene-title-right">Introducing Personalized Travel Assistant</h1>
+    <div class="overlay">
+      <h1 class="scene-title-right">Introducing Personalized Travel Assistant</h1>
+    </div>
   </div>
-  <div class="dark-layer"></div>
-</div>
 
 
-  <!-- placeholders for next sections (kept minimal in this step) -->
-
-   <div class="section" id="countdown-section" style="background: #000000d0;">
+  <div class="section" id="countdown-section" style="background: #000000d0;">
      <section id="countdown"></section>
   </div> 
   
 
-  <!-- Scene 3: Branding Video Section -->
-<div class="section video-section" id="scene-3">
-  <br>
-  <video id="vid-scene-3" muted playsinline preload="metadata" loop poster="img/vid3-poster.png">
-    <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/branding.mp4" media="(min-width: 769px)" type="video/mp4">
-    <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid3_mob.mp4" media="(max-width: 767px)" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>
-  <div class="overlay">
-    <h1 class="scene-title-left">Stay tuned as we revolutionize travel.</h1>
-    <p style="margin-top: auto; font-size: clamp(16px, 2vw, 20px); opacity: 0.85;">
-      Be part of the change by connecting with us on social media.
-    </p>
-  </div>
-  <div class="dark-layer"></div>
-</div>
-<button id="muteToggle" style="display:none;">Mute</button>
+  <div class="section video-section" id="scene-3">
+    <br>
+    
+    <div class="video-wrapper">
+        <video id="vid-scene-3" muted playsinline preload="metadata" loop poster="img/vid3-poster.png">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/branding.mp4" media="(min-width: 769px)" type="video/mp4">
+          <source src="https://admin.ryoko.world/api/b2b-landing-documents/file/vid3_mob.mp4" media="(max-width: 767px)" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="dark-layer"></div>
 
+        <button class="mute-btn" aria-label="Toggle Sound">
+            <svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+    </div>
+
+    <div class="overlay">
+      <h1 class="scene-title-left">Stay tuned as we revolutionize travel.</h1>
+      <p style="margin-top: auto; font-size: clamp(16px, 2vw, 20px); opacity: 0.85;">
+        Be part of the change by connecting with us on social media.
+      </p>
+    </div>
+  </div>
+
+  <button id="muteToggle" style="display:none;">Mute</button>
 
   <div id="footer"></div>
 
   <div class="scroll-hint" id="scrollHint">Scroll or Click</div>
 
-  <!-- Scroll Indicator -->
-<div class="scroll-indicator" id="scrollIndicator"></div>
+  <div class="scroll-indicator" id="scrollIndicator"></div>
 
-
-  <!-- GSAP + plugins (CDN) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-
-
-  
 
   <script>
   (function (s, e, n, d, er) {
@@ -145,39 +230,70 @@
     m.parentNode.insertBefore(a, m)
   })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
   sender('0b519c192e9746')
-</script>
+  </script>
 
-    <!-- Custom JS -->
-    <script src="js/countdown.js"></script>
-    <script src="js/headerCountdown.js"></script>
-    <script src="js/scenes.js"></script>
-    <script src="js/videoCircle.js"></script>
-    <script src="js/sectionIndicator.js"></script>
-    <script src="js/scrollHint.js"></script>
-    <script src="js/loader.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/headerCountdown.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/videoCircle.js"></script>
+  <script src="js/sectionIndicator.js"></script>
+  <script src="js/scrollHint.js"></script>
+  <script src="js/loader.js"></script>
   
-    <script>
-      const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-      };
-    
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, observerOptions);
-    
-      document.querySelectorAll('.scroll-animate').forEach(el => {
-        observer.observe(el);
+  <script>
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
-    </script>
+    }, observerOptions);
+  
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
     
-    <!-- Popup placeholder -->
-    <div id="popup-container"></div>
-    
-    <div id="videoCircle" class="video-circle">Play</div>
+  <div id="popup-container"></div>
+  
+  <div id="videoCircle" class="video-circle">Play</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const muteBtns = document.querySelectorAll('.mute-btn');
+        const videos = document.querySelectorAll('video');
+
+        // 1. Initial State: Muted
+        videos.forEach(vid => vid.muted = true);
+
+        // 2. Add Click Event to ALL buttons
+        muteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isCurrentlyMuted = videos[0].muted;
+                const shouldMute = !isCurrentlyMuted;
+
+                // Apply to ALL videos
+                videos.forEach(vid => {
+                    vid.muted = shouldMute;
+                    if (!shouldMute) vid.volume = 1.0; 
+                });
+
+                // Update Visuals for ALL buttons
+                muteBtns.forEach(b => {
+                    if (shouldMute) {
+                        b.classList.remove('sound-active');
+                    } else {
+                        b.classList.add('sound-active');
+                    }
+                });
+            });
+        });
+    });
+  </script>
 </body>
 </html>
