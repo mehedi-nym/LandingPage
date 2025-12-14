@@ -1,5 +1,5 @@
 function headerCountdown() {
-  const countdownDate = new Date("2025-10-27T23:59:59").getTime();
+  const countdownDate = new Date("2026-01-01T23:59:59").getTime();
 
   function updateHeaderCountdown() {
     const now = new Date().getTime();
